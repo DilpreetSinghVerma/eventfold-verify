@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Certificate Verification – EventFold Studio</title>
+  <meta name="description" content="Verify the authenticity of an EventFold Studio internship certificate." />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --gold: #daa520;
+      --gold-light: #ffd700;
+      --gold-dark: #b8860b;
+      --navy: #0d1225;
+      --navy-light: #111827;
+      --text: #e2e8f0;
+      --text-muted: rgba(200, 210, 240, 0.6);
+      --green: #10b981;
+      --red: #ef4444;
+    }
+
+    body {
+      background: var(--navy);
+      color: var(--text);
+      font-family: 'Montserrat', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ── NAV ── */
+    nav {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 40px;
+      border-bottom: 1px solid rgba(218,165,32,0.15);
+      background: rgba(13,18,37,0.95);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo-icon {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold-light));
+      clip-path: polygon(50% 0%, 80% 20%, 100% 50%, 80% 80%, 50% 100%, 20% 80%, 0% 50%, 20% 20%);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cinzel', serif;
+      font-size: 12px; font-weight: 700;
+      color: var(--navy);
+    }
+
+    .nav-brand {
+      font-family: 'Cinzel', serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-tag {
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 60px 20px 40px;
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -100px; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 400px;
+      background: radial-gradient(ellipse, rgba(218,165,32,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border: 1px solid rgba(218,165,32,0.3);
+      border-radius: 100px;
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .hero-badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .hero-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 700;
+      letter-spacing: 3px;
+      background: linear-gradient(180deg, #fff 0%, #c8d0e8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-style: italic;
+      color: var(--text-muted);
+      max-width: 500px;
+    }
+
+    /* ── SEARCH CARD ── */
+    .search-container {
+      width: 100%;
+      max-width: 580px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+
+    .search-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(218,165,32,0.2);
+      border-radius: 20px;
+      padding: 36px;
+      backdrop-filter: blur(10px);
+    }
+
+    .search-label {
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .search-input-wrapper {
+      display: flex;
+      gap: 10px;
+    }
+
+    .search-input {
+      flex: 1;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(218,165,32,0.25);
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      letter-spacing: 1px;
+    }
+
+    .search-input::placeholder { color: rgba(200,210,240,0.3); }
+
+    .search-input:focus {
+      border-color: rgba(218,165,32,0.6);
+      box-shadow: 0 0 0 3px rgba(218,165,32,0.08);
+    }
+
+    .search-btn {
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
+      border: none;
+      border-radius: 12px;
+      padding: 14px 24px;
+      color: var(--navy);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    .search-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(218,165,32,0.35);
+    }
+
+    .search-hint {
+      margin-top: 12px;
+      font-size: 11px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    /* ── RESULT ── */
+    #result { margin-top: 24px; }
+
+    .result-card {
+      border-radius: 16px;
+      padding: 28px;
+      border: 1px solid;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .result-card.valid {
+      background: rgba(16, 185, 129, 0.06);
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+
+    .result-card.invalid {
+      background: rgba(239, 68, 68, 0.06);
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+
+    .result-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .result-icon {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .result-icon.valid { background: rgba(16,185,129,0.15); }
+    .result-icon.invalid { background: rgba(239,68,68,0.15); }
+
+    .result-status {
+      font-family: 'Cinzel', serif;
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .result-status.valid { color: var(--green); }
+    .result-status.invalid { color: var(--red); }
+
+    .result-status-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .result-divider {
+      height: 1px;
+      background: rgba(218,165,32,0.1);
+      margin: 20px 0;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .result-field label {
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .result-field span {
+      font-size: 15px;
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    .verified-stamp {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px;
+      border: 1px solid rgba(16,185,129,0.3);
+      border-radius: 8px;
+      background: rgba(16,185,129,0.05);
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--green);
+      text-transform: uppercase;
+    }
+
+    /* ── ALL CERTIFICATES TABLE ── */
+    .all-certs {
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
+    }
+
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      letter-spacing: 3px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .cert-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(218,165,32,0.15);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .cert-table th {
+      background: rgba(218,165,32,0.08);
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 600;
+      border-bottom: 1px solid rgba(218,165,32,0.15);
+    }
+
+    .cert-table td {
+      padding: 14px 16px;
+      font-size: 13px;
+      color: var(--text);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .cert-table tr:last-child td { border-bottom: none; }
+
+    .cert-table tr:hover td { background: rgba(218,165,32,0.04); }
+
+    .verify-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--gold);
+      font-size: 11px;
+      cursor: pointer;
+      text-decoration: none;
+      letter-spacing: 1px;
+    }
+
+    .verify-link:hover { text-decoration: underline; }
+
+    .badge-valid {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      background: rgba(16,185,129,0.12);
+      border: 1px solid rgba(16,185,129,0.3);
+      border-radius: 100px;
+      font-size: 10px;
+      color: var(--green);
+      letter-spacing: 1px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(218,165,32,0.1);
+      width: 100%;
+      text-align: center;
+      padding: 24px;
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+    }
+
+    footer span { color: var(--gold); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#">
+      <div class="nav-logo-icon">EF</div>
+      <div class="nav-brand">EventFold</div>
+    </a>
+    <div class="nav-tag">Certificate Verification Portal</div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      Official Verification System
+    </div>
+    <h1 class="hero-title">Verify Certificate</h1>
+    <p class="hero-sub">Enter a Certificate ID below to verify the authenticity of an EventFold Studio internship certificate.</p>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="search-container">
+    <div class="search-card">
+      <label class="search-label" for="certInput">Certificate ID</label>
+      <div class="search-input-wrapper">
+        <input
+          id="certInput"
+          class="search-input"
+          type="text"
+          placeholder="e.g. CERT-EF-2026-001"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <button class="search-btn" onclick="verifyCert()">Verify →</button>
+      </div>
+      <p class="search-hint">Certificate IDs are printed on the bottom-right of each certificate</p>
+    </div>
+
+    <!-- Result appears here -->
+    <div id="result"></div>
+  </div>
+
+  <!-- ALL CERTIFICATES -->
+  <div class="all-certs">
+    <div class="section-title">✦ &nbsp; Issued Certificates &nbsp; ✦</div>
+    <table class="cert-table">
+      <thead>
+        <tr>
+          <th>Certificate ID</th>
+          <th>Name</th>
+          <th>Role</th>
+          <th>Period</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="certTableBody"></tbody>
+    </table>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2026 <span>EventFold Studio</span> &nbsp;·&nbsp; All certificates are officially issued by Dilpreet Singh, Founder &amp; CEO
+  </footer>
+
+  <script>
+    /* ============================================================
+       CERTIFICATE DATABASE
+       Add new interns here when needed.
+    ============================================================ */
+    const CERTIFICATES = [
+      {
+        id: "CERT-EF-2026-001",
+        name: "Muhammad Umar Ashraf",
+        role: "Marketing Intern",
+        company: "EventFold Studio",
+        period: "June 2026 – July 2026",
+        issuedBy: "Dilpreet Singh",
+        issuedDate: "July 2026",
+        valid: true
+      },
+      {
+        id: "CERT-EF-2026-002",
+        name: "Swarnendu Das",
+        role: "Marketing Intern",
+        company: "EventFold Studio",
+        period: "June 2026 – July 2026",
+        issuedBy: "Dilpreet Singh",
+        issuedDate: "July 2026",
+        valid: true
+      }
+    ];
+
+    /* ── Populate table ── */
+    const tbody = document.getElementById('certTableBody');
+    CERTIFICATES.forEach(cert => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td style="font-family:'Montserrat',sans-serif; font-size:12px; letter-spacing:1px; color:rgba(218,165,32,0.8);">${cert.id}</td>
+        <td>${cert.name}</td>
+        <td style="color:rgba(200,210,240,0.7); font-size:12px;">${cert.role}</td>
+        <td style="color:rgba(200,210,240,0.6); font-size:12px;">${cert.period}</td>
+        <td><span class="badge-valid">✓ Verified</span></td>
+        <td><a class="verify-link" onclick="verifyById('${cert.id}')">Check ↗</a></td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    /* ── Verify function ── */
+    function verifyById(id) {
+      document.getElementById('certInput').value = id;
+      verifyCert();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function verifyCert() {
+      const input = document.getElementById('certInput').value.trim().toUpperCase();
+      const resultDiv = document.getElementById('result');
+
+      if (!input) {
+        resultDiv.innerHTML = '';
+        return;
+      }
+
+      const cert = CERTIFICATES.find(c => c.id.toUpperCase() === input);
+
+      if (cert) {
+        resultDiv.innerHTML = `
+          <div class="result-card valid">
+            <div class="result-header">
+              <div class="result-icon valid">✅</div>
+              <div>
+                <div class="result-status valid">Certificate Verified</div>
+                <div class="result-status-sub">This certificate is authentic and was officially issued by EventFold Studio</div>
+              </div>
+            </div>
+            <div class="result-divider"></div>
+            <div class="result-grid">
+              <div class="result-field">
+                <label>Certificate ID</label>
+                <span>${cert.id}</span>
+              </div>
+              <div class="result-field">
+                <label>Intern Name</label>
+                <span>${cert.name}</span>
+              </div>
+              <div class="result-field">
+                <label>Role</label>
+                <span>${cert.role}</span>
+              </div>
+              <div class="result-field">
+                <label>Organization</label>
+                <span>${cert.company}</span>
+              </div>
+              <div class="result-field">
+                <label>Internship Period</label>
+                <span>${cert.period}</span>
+              </div>
+              <div class="result-field">
+                <label>Issued By</label>
+                <span>${cert.issuedBy}, Founder &amp; CEO</span>
+              </div>
+            </div>
+            <div class="verified-stamp">
+              ✦ &nbsp; Officially Verified by EventFold Studio &nbsp; ✦
+            </div>
+          </div>
+        `;
+      } else {
+        resultDiv.innerHTML = `
+          <div class="result-card invalid">
+            <div class="result-header">
+              <div class="result-icon invalid">❌</div>
+              <div>
+                <div class="result-status invalid">Certificate Not Found</div>
+                <div class="result-status-sub">No certificate with ID "<strong>${input}</strong>" exists in our records. Please check the ID and try again.</div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    /* ── Auto-verify from URL param ── */
+    const params = new URLSearchParams(window.location.search);
+    const idParam = params.get('id') || params.get('cert');
+    if (idParam) {
+      document.getElementById('certInput').value = idParam;
+      verifyCert();
+    }
+
+    /* ── Enter key support ── */
+    document.getElementById('certInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter') verifyCert();
+    });
+  </script>
+</body>
+</html>
