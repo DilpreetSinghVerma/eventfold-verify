@@ -417,6 +417,15 @@
     }
 
     footer span { color: var(--gold); }
+
+    @media (max-width: 600px) {
+      .hero-title { font-size: 28px; }
+      .search-input-wrapper { flex-direction: column; }
+      .search-btn { width: 100%; }
+      .result-grid { grid-template-columns: 1fr; }
+      .result-header { flex-direction: column; text-align: center; }
+      nav { padding: 16px 20px; }
+    }
   </style>
 </head>
 <body>
@@ -462,24 +471,6 @@
     <div id="result"></div>
   </div>
 
-  <!-- ALL CERTIFICATES -->
-  <div class="all-certs">
-    <div class="section-title">✦ &nbsp; Issued Certificates &nbsp; ✦</div>
-    <table class="cert-table">
-      <thead>
-        <tr>
-          <th>Certificate ID</th>
-          <th>Name</th>
-          <th>Role</th>
-          <th>Period</th>
-          <th>Status</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody id="certTableBody"></tbody>
-    </table>
-  </div>
-
   <!-- FOOTER -->
   <footer>
     &copy; 2026 <span>EventFold Studio</span> &nbsp;·&nbsp; All certificates are officially issued by Dilpreet Singh, Founder &amp; CEO
@@ -499,7 +490,8 @@
         period: "June 2026 – July 2026",
         issuedBy: "Dilpreet Singh",
         issuedDate: "July 2026",
-        valid: true
+        valid: true,
+        image: "assets/CERT-EF-2026-001.png"
       },
       {
         id: "CERT-EF-2026-002",
@@ -509,24 +501,10 @@
         period: "June 2026 – July 2026",
         issuedBy: "Dilpreet Singh",
         issuedDate: "July 2026",
-        valid: true
+        valid: true,
+        image: "assets/CERT-EF-2026-002.png"
       }
     ];
-
-    /* ── Populate table ── */
-    const tbody = document.getElementById('certTableBody');
-    CERTIFICATES.forEach(cert => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td style="font-family:'Montserrat',sans-serif; font-size:12px; letter-spacing:1px; color:rgba(218,165,32,0.8);">${cert.id}</td>
-        <td>${cert.name}</td>
-        <td style="color:rgba(200,210,240,0.7); font-size:12px;">${cert.role}</td>
-        <td style="color:rgba(200,210,240,0.6); font-size:12px;">${cert.period}</td>
-        <td><span class="badge-valid">✓ Verified</span></td>
-        <td><a class="verify-link" onclick="verifyById('${cert.id}')">Check ↗</a></td>
-      `;
-      tbody.appendChild(tr);
-    });
 
     /* ── Verify function ── */
     function verifyById(id) {
@@ -586,6 +564,7 @@
             <div class="verified-stamp">
               ✦ &nbsp; Officially Verified by EventFold Studio &nbsp; ✦
             </div>
+            <a href="${cert.image}" download="${cert.name}_Certificate.png" style="display:block; margin-top:16px; text-align:center; background:linear-gradient(135deg, var(--gold-dark), var(--gold-light)); color:var(--navy); padding:14px; border-radius:12px; text-decoration:none; font-weight:700; letter-spacing:1px; font-size:13px; font-family:'Montserrat', sans-serif;">📥 Download Certificate Image</a>
           </div>
         `;
       } else {
